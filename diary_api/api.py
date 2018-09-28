@@ -28,6 +28,8 @@ def create_entry():
         new_entry["entry_id"] = entries[-1]['entry_id']+1
     new_entry["entry_date"] = request_data["entry_date"]
     new_entry["details"] = request_data["details"]
+    if new_entry["details"] == "":
+        return jsonify({"message": "please input details"})
     entries.append(new_entry)
 
     return jsonify({'entries': new_entry}), 201
