@@ -7,7 +7,9 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - pytest --cov=diary_api/
+  - pytest --cov=.
+  - coverage
+  - coveralls
 
 after_script:
   - coveralls
