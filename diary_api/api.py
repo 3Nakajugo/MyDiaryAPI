@@ -7,7 +7,11 @@ entries = []
 
 @app.route('/api/v1/entries', methods=['GET'])
 def get_all_entries():
-    return jsonify({'entries': entries}), 200
+    # global entries
+    print(entries)
+    if len(entries) > 0:
+        return jsonify({'entries': entries}), 200
+    return jsonify({'message': 'no entries found'}), 400
 
 
 @app.route('/api/v1/entries/<int:entry_id>', methods=['GET'])
@@ -39,8 +43,8 @@ def create_entry():
 def modify_an_entry(entry_id):
     request_data = request.get_json()
     for entry in entries:
-        if entry['entry_id'] == entry_id:
-            entry["details"] = request_data["details"]
+        if entry["entry_id"] == entry_id:
+            entries[0]['details'] = request_data["details"]
             return jsonify(entry), 200
     return jsonify({'message': 'no entry with that id'}), 404
 
